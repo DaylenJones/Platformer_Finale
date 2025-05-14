@@ -12,95 +12,82 @@ public class GameObject {
     protected int xDrawOffset, yDrawOffset;
 
     public GameObject(int x, int y, int objType) {
-        // TODO: assign this x to x
-        // TODO: repeat for the other parameters
+        this.x = x;
+        this.y = y;
+        this.objType = objType;
     }
 
-    protected void updateAnimationTick(){
-        // TODO: add 1 to aniTick
-        // TODO: check if aniTick is greater than or equal to ANI_SPEED
-        // if block beginning
-        // TODO: set aniTick to 0
-        // TODO: add 1 to aniIndex
-        // TODO: check if aniIndex is greater than or equal to GetSpriteAmount(objType)
-        // if block beginning
-        // TODO: set aniIndex to 0
-        // TODO: check if objType is BARRELL or BOX
-        // if block beginning
-        // TODO: set doAnimation to false
-        // TODO: set active to false
-        // end of if
-        // beginning of else if block for objType equal to CANNON_LEFT or CANNON_RIGHT
-        // TODO: set doAnimation to false
-        // end of else if
-        // end of if
-        // end of if
+    protected void updateAnimationTick() {
+        aniTick++;
+        if (aniTick >= ANI_SPEED) {
+            aniTick = 0;
+            aniIndex++;
+            if (aniIndex >= GetSpriteAmount(objType)) {
+                aniIndex = 0;
+                if (objType == BARRELL || objType == BOX) {
+                    doAnimation = false;
+                    active = false;
+                } else if (objType == CANNON_LEFT || objType == CANNON_RIGHT) {
+                    doAnimation = false;
+                }
+            }
+        }
     }
 
-    public void reset(){
-        // TODO: set aniIndex, aniTick to 0
-        // TODO: set active to true
+    public void reset() {
+        aniIndex = 0;
+        aniTick = 0;
+        active = true;
 
-        // TODO: check if objType is a BARRELL or BOX, or CANNON_LEFT or CANNON_RIGHT
-        // if block beginning
-        // TODO: set doAnimation to false
-        // end of if block
-        // else block beginning
-        // TODO: set doAnimation to true
-        // end of else block
+        if (objType == BARRELL || objType == BOX || objType == CANNON_LEFT || objType == CANNON_RIGHT) {
+            doAnimation = false;
+        } else {
+            doAnimation = true;
+        }
     }
 
-    protected void initHitbox(int width, int height){
-        // TODO: set hitbox to new Rectangle2D.Float()
-        // cont.  passing in x, y, (int) (width * Game.SCALE), (int) (height * Game.SCALE)
+    protected void initHitbox(int width, int height) {
+        hitbox = new Rectangle2D.Float(x, y, (int) (width * Game.SCALE), (int) (height * Game.SCALE));
     }
 
-    public void drawHitbox(Graphics g, int xLvlOffset){
-        // TODO: call g's setColor method and pass in Color.PINK
-        // TODO: call g's drawRect method passing in
-        // cont. (int) hitbox.x - xLvlOffset, (int) hitbox.y, (int) hitbox.width, (int) hitbox.height
+    public void drawHitbox(Graphics g, int xLvlOffset) {
+        g.setColor(Color.PINK);
+        g.drawRect((int) hitbox.x - xLvlOffset, (int) hitbox.y, (int) hitbox.width, (int) hitbox.height);
     }
 
-    public int getObjType(){
-        // TODO: return objType
-        return 0; // TODO: remove when done
+    public int getObjType() {
+        return objType;
     }
 
-    public Rectangle2D.Float getHitbox(){
-        // TODO: return hitbox
-        return null; // TODO: remove when done
+    public Rectangle2D.Float getHitbox() {
+        return hitbox;
     }
 
-    public boolean isActive(){
-        // TODO: return active
-        return false; // TODO: remove when done
+    public boolean isActive() {
+        return active;
     }
 
-    public void setActive(boolean active){
-        // TODO: set this.active to active
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
-    public void setAnimation(boolean doAnimation){
-        // TODO: set this.doAnimation to doAnimation
+    public void setAnimation(boolean doAnimation) {
+        this.doAnimation = doAnimation;
     }
 
-    public int getxDrawOffset(){
-        // TODO: return xDrawOffset
-        return 0; // TODO: remove when done
+    public int getxDrawOffset() {
+        return xDrawOffset;
     }
 
-    public int getyDrawOffset(){
-        // TODO: return yDrawOffset
-        return 0; // TODO: remove when done
+    public int getyDrawOffset() {
+        return yDrawOffset;
     }
 
-    public int getAniIndex(){
-        // TODO: return aniIndex
-        return 0; // TODO: remove when done
+    public int getAniIndex() {
+        return aniIndex;
     }
 
-    public int getAniTick(){
-        // TODO: return aniTick
-        return 0; // TODO: remove when done
+    public int getAniTick() {
+        return aniTick;
     }
 }

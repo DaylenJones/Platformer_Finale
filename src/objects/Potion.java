@@ -1,5 +1,7 @@
 package objects;
 
+import static utilz.Game.SCALE;
+
 public class Potion extends GameObject {
 
     private float hoverOffset;
@@ -7,31 +9,29 @@ public class Potion extends GameObject {
 
     public Potion(int x, int y, int objType) {
         super(x, y, objType);
-        // TODO: set doAnimation to true
+        this.doAnimation = true;
 
-        // TODO: call initHitbox passing in 7 and 14
+        initHitbox(7, 14);
 
-        // TODO: assign (int) (3 * Game.SCALE) to xDrawOffset
-        // TODO: assign (int) (2 * Game.SCALE) to yDrawOffset
+        this.xDrawOffset = (int) (3 * SCALE);
+        this.yDrawOffset = (int) (2 * SCALE);
 
-        // TODO: assign (int) (10 * Game.SCALE) to maxHoverOffset
+        this.maxHoverOffset = (int) (10 * SCALE);
     }
 
-    public void update(){
-        // TODO: call updateAnimationTick()
-        // TODO: call updateHover()
+    public void update() {
+        updateAnimationTick();
+        updateHover();
     }
 
-    private void updateHover(){
-        // TODO: add (0.075f * Game.SCALE * hoverDir) to hoverOffset
-        // if else block
-        // TODO: check if hoverOffset is greater than or equal to maxHoverOffset
-        // if so set hoverDir to -1
-        // else set it to 1
-        // end of if else block
+    private void updateHover() {
+        hoverOffset += 0.075f * SCALE * hoverDir;
 
-        // TODO: set hitbox.y to y + hoverOffset
+        if (hoverOffset >= maxHoverOffset)
+            hoverDir = -1;
+        else if (hoverOffset <= 0)
+            hoverDir = 1;
+
+        hitbox.y = y + hoverOffset;
     }
-
-
 }

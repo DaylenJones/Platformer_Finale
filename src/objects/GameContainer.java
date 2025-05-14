@@ -2,32 +2,31 @@
 
 package objects;
 
-public class GameContainer extends GameObject{
+public class GameContainer extends GameObject {
 
     public GameContainer(int x, int y, int objType) {
         super(x, y, objType);
-        // TODO: call super passing in x, y, objType
-        // TODO: call createHitbox()
+        createHitbox();
     }
 
-    private void createHitbox(){
-        // TODO: if else statement here
-        // check if objType is a box
-        // TODO: if so call initHitbox(25, 18) then
-        // TODO: set xDrawOffset to (int) (7 * Game.SCALE)
-        // TODO: set yDrawOffset to (int) (12 * Game.SCALE)
-        // else
-        // TODO: call initHitbox(23, 25) then
-        // TODO: set xDrawOffset to (int) (8 * Game.SCALE)
-        // TODO: set yDrawOffset to (int) (5 * Game.SCALE)
-        // end of if else block
-        // TODO: add yDrawOffset + (int) (Game.SCALE * 2) to hitbox.y
-        // TODO: add xDrawOffset / 2 to hitbox.x
+    private void createHitbox() {
+        if (objType == BOX) {
+            initHitbox(25, 18);
+            xDrawOffset = (int) (7 * Game.SCALE);
+            yDrawOffset = (int) (12 * Game.SCALE);
+        } else {
+            initHitbox(23, 25);
+            xDrawOffset = (int) (8 * Game.SCALE);
+            yDrawOffset = (int) (5 * Game.SCALE);
+        }
+        hitbox.y += yDrawOffset + (int) (Game.SCALE * 2);
+        hitbox.x += xDrawOffset / 2;
     }
 
-    public void update(){
-        // TODO: check if doAnimation is true and if so updateAnimationTick()
+    public void update() {
+        if (doAnimation)
+            updateAnimationTick();
     }
-
 }
+
 
